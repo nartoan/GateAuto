@@ -11,7 +11,6 @@ public abstract class Ticket  {
 		this.id = id;
 		this.status = status;
 	}
-
 	public abstract String getTicketInfo();
 	public abstract boolean isValidExit(Station currentStation);
 	public abstract boolean isValidEnter(Station currentStation);
