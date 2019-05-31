@@ -41,6 +41,7 @@ public class StationUI {
 			actionPassenger = ActionPassenger.ENTER_STATION;
 		}
 
+		scanner.nextLine();
 		System.out.println("List ticket: ");
 		String strTickets = this.stationController.getListTicket();
 		System.out.println(strTickets);

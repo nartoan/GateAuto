@@ -5,7 +5,9 @@ public class AutoGate {
     public static void main(String[] args) {
         StationUI stationUI = new StationUI(new StationController());
 
-        stationUI.showListStation();
-        stationUI.showListTicket();
+       while (true) {
+           stationUI.showListStation();
+           stationUI.showListTicket();
+       }
     }
 }

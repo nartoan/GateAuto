@@ -31,7 +31,7 @@ public class StationController {
 
 		// Fake list station
 		this.listTicket = new ArrayList<>(3);
-		this.listTicket.add(new OneWayTicket("12345677", TicketState.NEW_STATE, stationStart, stationStart ));
+		this.listTicket.add(new OneWayTicket("12345677", TicketState.NEW_STATE, stationStart, stationEnd,4 ));
 		this.listTicket.add(new TwentyFourHourTicket("12345678", TicketState.NEW_STATE ));
 		this.listTicket.add(new PrepaidCard("12345679", TicketState.NEW_STATE, 20));
 	}
@@ -39,19 +39,18 @@ public class StationController {
 	public boolean validateEnterTicket(Ticket ticket) {
 		boolean isValid = ticket.isValidEnter(this.currentStation);
 		if (isValid) {
-			ticket.updateStartStation(this.currentStation);
+			ticket.updateInfoAfterEnter(this.currentStation);
 		}
-		// TODO: Set more information
-		return false;
+
+		return isValid;
 	}
 
 	public boolean validateExitTicket(Ticket ticket) {
 		boolean isValid = ticket.isValidExit(this.currentStation);
 		if (isValid) {
-			ticket.updateStartStation(null);
+			ticket.updateInfoAfterExit(this.currentStation);
 		}
-		// TODO: Set more information
-		return false;
+		return isValid;
 	}
 
 	public String getTicketInfo(String idTicket) {

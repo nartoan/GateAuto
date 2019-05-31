@@ -6,24 +6,47 @@ import utils.IUtil;
 public class OneWayTicket extends Ticket  {
 	private Station embarkation;
 	private Station disembarkation;
+	private double balance;
 
-	public OneWayTicket(String id, TicketState status, Station embarkation, Station disembarkation) {
+	public OneWayTicket(String id, TicketState status, Station embarkation, Station disembarkation, double balance) {
 		super(id, status);
 
 		this.embarkation = embarkation;
 		this.disembarkation = disembarkation;
+		this.balance = balance;
 	}
 
 	public String getTicketInfo() {
-		return null;
+		return this.id + " from " + this.embarkation.getName() + " to " + this.disembarkation.getName() + " Status: " + this.status + " - Balance:" + this.balance;
 	}
 
 	public boolean isValidExit(Station currentStation) {
-		IUtil.calculateActualFare(this.getStartStation(), currentStation);
+		double fare = IUtil.calculateActualFare(this.getStartStation(), currentStation);
+		if (fare <= balance) {
+			return true;
+		}
 		return false;
 	}
 
 	public boolean isValidEnter(Station currentStation) {
-		return false;
+		if (this.status != TicketState.NEW_STATE) {
+			return false;
+		}
+
+		if ((embarkation.getPosition() > currentStation.getPosition() && disembarkation.getPosition() > currentStation.getPosition()) ||
+				(embarkation.getPosition() < currentStation.getPosition() && disembarkation.getPosition() < currentStation.getPosition())) {
+			return false;
+		}
+
+		return true;
+	}
+
+	public void updateInfoAfterEnter(Station currentStation) {
+		super.updateInfoAfterEnter(currentStation);
+	}
+
+	public void updateInfoAfterExit(Station currentStation) {
+		super.updateInfoAfterExit(currentStation);
+		this.status = TicketState.DESTROY_STATE;
 	}
 }
