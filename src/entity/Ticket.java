@@ -17,6 +17,7 @@ public abstract class Ticket  {
 	public abstract boolean isValidEnter(Station currentStation);
 
 	public void updateInfoAfterEnter(Station currentStation) {
+		System.out.println("RUN HERE");
 		this.startStation = currentStation;
 		this.status = TicketState.IN_STATION_STATE;
 	}

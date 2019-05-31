@@ -30,14 +30,10 @@ public class PrepaidCard extends Ticket  {
 		return false;
 	}
 
-	public void updateInfoAfterEnter(Station currentStation) {
-		super.updateInfoAfterEnter(currentStation);
-	}
-
 	public void updateInfoAfterExit(Station currentStation) {
-		super.updateInfoAfterExit(currentStation);
-
 		double fare = IUtil.calculateActualFare(this.getStartStation(), currentStation);
 		this.balance = this.balance - fare;
+
+		super.updateInfoAfterExit(currentStation);
 	}
 }
